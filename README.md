@@ -12,3 +12,7 @@ uvicorn app.main:app --reload
 ## Deploy (Coolify)
 Dockerfile build pack, port 8000. GitHub secrets: COOLIFY_WEBHOOK_URL (optional COOLIFY_TOKEN); the
 Deploy (Coolify) workflow runs only after Malware Scan (CI Gate) passes on main.
+
+## Live
+
+https://tester.zedu.chat
