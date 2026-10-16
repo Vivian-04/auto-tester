@@ -4,6 +4,7 @@ import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient, supabaseConfigured } from "@/lib/supabase/client";
 import { Logo } from "@/components/Navbar";
+import { DemoRunCard, GoogleIcon } from "@/components/LoginVisuals";
 
 function LoginForm() {
   const searchParams = useSearchParams();
@@ -31,51 +32,72 @@ function LoginForm() {
   }
 
   return (
-    <div className="w-full max-w-sm rounded-2xl border border-border bg-panel p-8">
-      <div className="flex items-center gap-3 mb-8">
-        <Logo size="md" />
-        <span className="text-lg font-semibold">Auto Tester</span>
+    <div className="relative grid w-full max-w-6xl items-start gap-10 lg:grid-cols-[1.1fr_0.9fr]">
+      {/* Left — pitch + live preview */}
+      <div className="min-w-0 pt-2">
+        <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-muted">
+          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+          Zedu pre-release gate · staging smoke runs
+        </div>
+        <h1 className="mt-5 text-4xl font-semibold leading-[1.05] tracking-tight sm:text-5xl">
+          Ship only when it&rsquo;s{" "}
+          <span className="text-amber-400">
+            safe to release.
+          </span>
+        </h1>
+        <p className="mt-4 max-w-xl text-base leading-relaxed text-muted">
+          Auto Tester turns every staging run into a single verdict — so you know whether a build
+          is safe to ship without reading a single log.
+        </p>
+
+        <div className="mt-8">
+          <DemoRunCard />
+        </div>
       </div>
 
-      <h1 className="text-xl font-semibold mb-2">Sign in to Auto Tester</h1>
-      <p className="text-sm text-muted mb-6">
-        Sign in with your Google account to see whether a build is safe to release.
-      </p>
+      {/* Right — sign-in card */}
+      <div className="relative mx-auto w-full max-w-md">
+        <div className="relative rounded-3xl border border-white/10 bg-[#171310] p-8 shadow-2xl shadow-black/60 sm:p-10">
+          <div className="flex items-center gap-3">
+            <Logo size="md" />
+            <div>
+              <p className="font-semibold leading-tight">Auto Tester</p>
+              <p className="text-[11px] uppercase tracking-[0.22em] text-muted">Sign in to continue</p>
+            </div>
+          </div>
 
-      <button
-        onClick={signInWithGoogle}
-        disabled={loading}
-        className="flex w-full items-center justify-center gap-3 rounded-xl bg-white px-5 py-3 font-medium text-zinc-800 hover:bg-zinc-100 transition-colors disabled:opacity-60"
-      >
-        <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true">
-          <path
-            fill="#4285F4"
-            d="M23.5 12.3c0-.9-.1-1.5-.3-2.2H12v4.1h6.5c-.1 1.1-.8 2.7-2.4 3.8l3.7 2.9c2.3-2.1 3.7-5.2 3.7-8.6z"
-          />
-          <path
-            fill="#34A853"
-            d="M12 24c3.2 0 6-1.1 7.9-2.9l-3.7-2.9c-1 .7-2.4 1.2-4.2 1.2-3.2 0-6-2.1-6.9-5.1L1.2 17c2 3.7 5.7 7 10.8 7z"
-          />
-          <path
-            fill="#FBBC05"
-            d="M5.1 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3L1.2 6.7C.4 8.3 0 10.1 0 12s.4 3.7 1.2 5.3l3.9-3z"
-          />
-          <path
-            fill="#EA4335"
-            d="M12 4.6c2.3 0 3.8 1 4.7 1.8l3.4-3.3C18 1.2 15.2 0 12 0 6.9 0 3.2 3.3 1.2 6.7l3.9 3C6 6.7 8.8 4.6 12 4.6z"
-          />
-        </svg>
-        {loading ? "Redirecting…" : "Continue with Google"}
-      </button>
+          <h2 className="mt-8 text-2xl font-semibold tracking-tight">Welcome back</h2>
+          <p className="mt-2 text-sm leading-relaxed text-muted">
+            Sign in with your Google account to see live verdicts, run history and failure evidence.
+          </p>
 
-      {error && <p className="mt-4 text-sm text-red-400">{error}</p>}
+          <button
+            onClick={signInWithGoogle}
+            disabled={loading}
+            className="mt-8 flex w-full items-center justify-center gap-3 rounded-xl bg-white px-5 py-4 text-[15px] font-semibold text-zinc-900 shadow-lg shadow-black/40 transition-all hover:-translate-y-0.5 hover:bg-zinc-100 hover:shadow-xl active:translate-y-0 disabled:cursor-wait disabled:opacity-70"
+          >
+            {loading ? (
+              <span className="h-5 w-5 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-800" />
+            ) : (
+              <GoogleIcon />
+            )}
+            {loading ? "Redirecting to Google…" : "Continue with Google"}
+          </button>
+
+          {error && (
+            <p className="mt-4 rounded-xl border border-red-500/40 bg-red-500/10 p-3 text-sm leading-relaxed text-red-300">
+              {error}
+            </p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
 
 export default function LoginPage() {
   return (
-    <main className="flex flex-1 items-center justify-center p-6">
+    <main className="mx-auto flex w-full max-w-7xl flex-1 items-center justify-center px-6 py-12 lg:py-16">
       <Suspense fallback={null}>
         <LoginForm />
       </Suspense>

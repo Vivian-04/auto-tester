@@ -9,7 +9,7 @@ export function Logo({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   const bolt = size === "lg" ? "h-5 w-5" : "h-4 w-4";
   return (
     <span
-      className={`flex ${box} items-center justify-center bg-gradient-to-br from-accent via-accent to-fuchsia-600 shadow-lg shadow-accent/40`}
+      className={`flex ${box} items-center justify-center bg-amber-500 shadow-lg shadow-black/40`}
     >
       <svg viewBox="0 0 24 24" className={bolt} aria-hidden="true">
         <path d="M13 2L4.5 13.5H11L9.5 22 19 10h-6.5L13 2z" fill="#ffffff" />
