@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: dark;
+  --background: #07090d;
+  --foreground: #f1f3f8;
+  --muted: #9ba3b4;
+  --panel: #0e1219;
+  --border: #1e2532;
+  --accent: #7141f8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-panel: var(--panel);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+
+body {
+  background:
+    radial-gradient(1100px 480px at 75% -10%, rgba(113, 65, 248, 0.22), transparent 60%),
+    radial-gradient(800px 420px at 12% 8%, rgba(56, 189, 248, 0.12), transparent 55%),
+    radial-gradient(700px 600px at 50% 110%, rgba(113, 65, 248, 0.08), transparent 60%),
+    var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: rgba(113, 65, 248, 0.4);
+}
+
