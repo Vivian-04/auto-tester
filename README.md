@@ -18,6 +18,9 @@ This repo hosts both pieces:
 pip install -r requirements.txt
 uvicorn app.main:app --reload
 
+# Unit tests (standard library only, no extra install)
+python -m unittest
+
 # Dashboard on :3000 — without .env.local it skips login (dev mode)
 cd frontend
 npm ci
